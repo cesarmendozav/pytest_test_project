@@ -1,0 +1,32 @@
+{
+    "name": "Python Retail App Dev Container",
+    "image": "mcr.microsoft.com/devcontainers/python:0-3.11", // Using Python 3.11 image
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {},
+        "ghcr.io/devcontainers/features/node:1": { // Add Node.js if you plan frontend, otherwise can remove
+            "version": "lts"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-toolsai.jupyter",
+                "charliermarsh.ruff", // Linter/formatter
+                "eamodio.gitlens"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/local/bin/python" // Ensure correct interpreter
+            }
+        }
+    },
+    "postCreateCommand": "pip install -r requirements.txt", // Install dependencies after container creation
+    "forwardPorts": [5000], // Forward port 5000 for our Flask app
+    "portsAttributes": {
+        "5000": {
+            "label": "Retail App",
+            "onAutoForward": "notify" // or "openBrowser" if you want it to open automatically
+        }
+    }
+}
